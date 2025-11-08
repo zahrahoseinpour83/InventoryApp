@@ -1,14 +1,10 @@
 const ProductList = ({ products, categories, setProducts }) => {
-  // ✅ اصلاح تابع findCategory برای جلوگیری از undefined.title
   const findCategory = (categoryId) => {
-    const category = categories.find((c) => c.id === parseInt(categoryId));
-    return category ? category.title : "دسته نامشخص";
+    return categories.find((c) => c.id === parseInt(categoryId)).title;
   };
 
   const deleteProductHandler = (productId) => {
-    const filteredProducts = products.filter(
-      (product) => product.id !== parseInt(productId)
-    );
+    const filteredProducts = products.filter((product) => product.id !== parseInt(productId));
     setProducts(filteredProducts);
   };
 
@@ -18,9 +14,8 @@ const ProductList = ({ products, categories, setProducts }) => {
         ProductList
       </h2>
       <div className="overflow-x-auto">
-        {/* ✅ افزودن بررسی products قبل از map برای جلوگیری از خطای undefined */}
-        {products?.map((product) =>
-          product ? (
+        {products.map((product) => {
+          return (
             <div
               key={product.id}
               className="flex items-center justify-between mb-2 w-full min-w-[400px]"
@@ -44,8 +39,8 @@ const ProductList = ({ products, categories, setProducts }) => {
                 </button>
               </div>
             </div>
-          ) : null
-        )}
+          );
+        })}
       </div>
     </div>
   );
